@@ -25,5 +25,9 @@ gradlePlugin {
             id = "com.inner.second.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
+        register("androidLibrary") {
+            id = "com.inner.second.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
     }
 }
