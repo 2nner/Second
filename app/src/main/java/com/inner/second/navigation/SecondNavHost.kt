@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 fun SecondNavHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = SecondScreen.Home,
+        startDestination = SecondScreen.Contract,
     ) {
         secondNavigation()
     }

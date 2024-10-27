@@ -38,6 +38,7 @@ android {
 dependencies {
     // Feature
     implementation(projects.feature.home)
+    implementation(projects.feature.contract)
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))
