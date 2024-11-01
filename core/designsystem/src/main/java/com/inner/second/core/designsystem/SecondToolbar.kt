@@ -1,5 +1,6 @@
 package com.inner.second.core.designsystem
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -18,16 +19,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.inner.second.core.designsystem.theme.Background
 
 @Composable
 fun SecondToolbar(
     title: String,
-    onBackButtonClick: (() -> Unit)? = null
+    onBackButtonClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp, horizontal = 16.dp),
+            .padding(vertical = 12.dp, horizontal = 16.dp)
+            .background(Background),
     ) {
         Box(
             contentAlignment = Alignment.CenterStart
@@ -42,8 +45,12 @@ fun SecondToolbar(
             )
             if (onBackButtonClick != null) {
                 Icon(
-                    modifier = Modifier.size(24.dp)
-                        .clickable { onBackButtonClick() },
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable(
+                            indication = null,
+                            interactionSource = null
+                        ) { onBackButtonClick() },
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "backButton",
                     tint = Color.Black,

@@ -2,6 +2,8 @@ plugins {
     id("com.inner.second.android.application")
     id("com.inner.second.android.application.compose")
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.plugin)
 }
 
 android {
@@ -40,6 +42,10 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.contract)
 
+    // Core
+    implementation(projects.core.designsystem)
+    implementation(projects.core.navigation)
+
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -53,4 +59,6 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
