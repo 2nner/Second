@@ -4,10 +4,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.inner.second.core.navigation.ContractType
+import com.inner.second.core.model.ContractType
 import com.inner.second.core.navigation.SecondScreen
-import com.inner.second.feature.contract.SecondContractGetInfo
-import com.inner.second.feature.contract.SecondContractMain
+import com.inner.second.feature.contract.SecondContractGetInfoRoute
+import com.inner.second.feature.contract.SecondContractMainRoute
 import com.inner.second.feature.home.SecondHome
 import kotlin.reflect.typeOf
 
@@ -20,7 +20,7 @@ fun NavGraphBuilder.secondNavigation(
 
     navigation<SecondScreen.Contract>(startDestination = SecondScreen.Main) {
         composable<SecondScreen.Main> {
-            SecondContractMain(
+            SecondContractMainRoute(
                 onButtonClick = { contractType ->
                     navController.navigate(
                         route = SecondScreen.GetInfo(contractType),
@@ -33,8 +33,11 @@ fun NavGraphBuilder.secondNavigation(
                 typeOf<ContractType>() to ContractType.navType,
             )
         ) {
-            SecondContractGetInfo(
-                onBackButtonClick = { navController.popBackStack() }
+            SecondContractGetInfoRoute(
+                onBackButtonClick = { navController.popBackStack() },
+                onNextActionButtonClick = {
+                    navController.navigate(SecondScreen.Signature)
+                }
             )
         }
         composable<SecondScreen.Signature> {

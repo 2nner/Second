@@ -24,10 +24,18 @@ import com.inner.second.core.designsystem.SecondToolbar
 import com.inner.second.core.designsystem.theme.Background
 import com.inner.second.core.designsystem.theme.Green
 import com.inner.second.core.designsystem.theme.Purple
+import com.inner.second.core.model.ContractType
 
 @Composable
-fun SecondContractMain(
-    onButtonClick: (com.inner.second.core.navigation.ContractType) -> Unit
+fun SecondContractMainRoute(
+    onButtonClick: (ContractType) -> Unit
+) {
+    SecondContractMainScreen(onButtonClick = onButtonClick)
+}
+
+@Composable
+fun SecondContractMainScreen(
+    onButtonClick: (ContractType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -47,7 +55,7 @@ fun SecondContractMain(
 
 @Composable
 private fun SecondContractMainContent(
-    onButtonClick: (com.inner.second.core.navigation.ContractType) -> Unit
+    onButtonClick: (ContractType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -57,7 +65,7 @@ private fun SecondContractMainContent(
         SecondButton(
             titleIconRes = R.drawable.ic_edit_outlined,
             text = "직접 작성하기",
-            onClick = { onButtonClick(com.inner.second.core.navigation.ContractType.New) }
+            onClick = { onButtonClick(ContractType.New) }
         )
         Spacer(modifier = Modifier.height(12.dp))
         SecondButton(
@@ -77,7 +85,7 @@ private fun SecondContractMainContent(
             trailingIconRes = R.drawable.ic_chevron_right,
             text = "차용증",
             titleIconTintColor = Green,
-            onClick = { onButtonClick(com.inner.second.core.navigation.ContractType.IOU) }
+            onClick = { onButtonClick(ContractType.IOU) }
         )
         Spacer(modifier = Modifier.height(12.dp))
         SecondButton(
@@ -91,8 +99,8 @@ private fun SecondContractMainContent(
 
 @Preview(showBackground = true)
 @Composable
-private fun SecondContractPreview() {
-    SecondContractMain(
+private fun SecondContractScreenPreview() {
+    SecondContractMainScreen(
         onButtonClick = {}
     )
 }

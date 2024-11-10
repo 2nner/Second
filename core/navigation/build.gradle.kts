@@ -9,6 +9,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.model)
+
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.compose)
 }

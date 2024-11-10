@@ -45,6 +45,7 @@ dependencies {
     // Core
     implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
+    implementation(projects.core.model)
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))
