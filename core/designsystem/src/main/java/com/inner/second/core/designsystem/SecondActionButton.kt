@@ -13,18 +13,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.inner.second.core.designsystem.theme.ActionButtonBackground
+import com.inner.second.core.designsystem.theme.ActionButtonDisabledBackground
 
 @Composable
 fun SecondActionButton(
     text: String,
+    enabled: Boolean = true,
     onButtonClick: () -> Unit,
 ) {
     Text(
         text = text,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(indication = null, interactionSource = null) { onButtonClick() }
-            .background(ActionButtonBackground)
+            .clickable(
+                indication = null,
+                interactionSource = null,
+                enabled = enabled,
+            ) { onButtonClick() }
+            .background(
+                if (enabled) ActionButtonBackground
+                else ActionButtonDisabledBackground
+            )
             .padding(vertical = 16.dp),
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.SemiBold,

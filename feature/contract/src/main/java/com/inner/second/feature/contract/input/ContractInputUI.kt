@@ -145,9 +145,11 @@ fun ContractInputPrice(
     BasicTextField(
         value = displayPrice,
         onValueChange = {
-            val number = it.replace(",", "").toLong()
-            price = if (number < 0) 0 else number
-            onPriceChange(price)
+            if (it.isNotEmpty()) {
+                val number = it.replace(",", "").toLong()
+                price = if (number < 0) 0 else number
+                onPriceChange(price)
+            }
         },
         modifier = Modifier.fillMaxWidth(),
         textStyle = TextStyle(

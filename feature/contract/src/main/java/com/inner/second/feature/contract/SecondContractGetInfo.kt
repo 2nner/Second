@@ -36,8 +36,11 @@ fun SecondContractGetInfoRoute(
     SecondContractGetInfoScreen(
         contractType = contractType,
         onBackButtonClick = onBackButtonClick,
-        onContractFormInputChange = newContractViewModel::onContractFormChange,
-        onNextActionButtonClick = onNextActionButtonClick,
+        onContractFormInputChange = newContractViewModel::onContractFormMapChange,
+        onNextActionButtonClick = {
+            newContractViewModel.onContractFormUpdate()
+            onNextActionButtonClick()
+        }
     )
 }
 

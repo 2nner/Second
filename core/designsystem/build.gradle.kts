@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.sain)
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)

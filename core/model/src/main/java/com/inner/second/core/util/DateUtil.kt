@@ -6,3 +6,4 @@ import java.time.format.DateTimeFormatter
 
 fun LocalDate.toFormattedString(): String = this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 fun LocalDateTime.toFormattedString(): String = this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+fun LocalDateTime.toFormattedStringInKorean(): String = this.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"))

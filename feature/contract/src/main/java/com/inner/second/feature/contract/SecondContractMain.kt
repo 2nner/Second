@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.inner.second.core.designsystem.R
 import com.inner.second.core.designsystem.SecondButton
 import com.inner.second.core.designsystem.SecondToolbar
@@ -28,9 +29,15 @@ import com.inner.second.core.model.ContractType
 
 @Composable
 fun SecondContractMainRoute(
-    onButtonClick: (ContractType) -> Unit
+    contractViewModel: NewContractViewModel = hiltViewModel(),
+    navigateToGetInfo: (ContractType) -> Unit,
 ) {
-    SecondContractMainScreen(onButtonClick = onButtonClick)
+    SecondContractMainScreen(
+        onButtonClick = { contractType ->
+            contractViewModel.onContractTypeChange(contractType)
+            navigateToGetInfo(contractType)
+        }
+    )
 }
 
 @Composable
