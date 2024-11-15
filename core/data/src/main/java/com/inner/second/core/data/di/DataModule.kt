@@ -1,9 +1,9 @@
 package com.inner.second.core.data.di
 
-import com.inner.second.core.data.user.ContractRepository
-import com.inner.second.core.data.user.ContractRepositoryImpl
-import com.inner.second.core.data.user.FakeUserRepository
-import com.inner.second.core.data.user.UserRepository
+import com.inner.second.core.data.repository.ContractRepository
+import com.inner.second.core.data.repository.ContractRepositoryImpl
+import com.inner.second.core.data.repository.FakeUserRepository
+import com.inner.second.core.data.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

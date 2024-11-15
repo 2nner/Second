@@ -6,8 +6,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.inner.second.core.data.user.ContractRepository
-import com.inner.second.core.data.user.UserRepository
+import com.inner.second.core.data.repository.ContractRepository
+import com.inner.second.core.data.repository.UserRepository
 import com.inner.second.core.model.ContractFormInput
 import com.inner.second.core.model.ContractKey
 import com.inner.second.core.model.ContractType
@@ -23,7 +23,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject
 
@@ -97,7 +96,7 @@ class NewContractViewModel @Inject constructor(
             contractFile.emit(file)
         }
     }
-    
+
     fun saveContract(uri: Uri) {
         viewModelScope.launch {
             contractFile.value?.let { contractFile ->

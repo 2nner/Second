@@ -1,4 +1,4 @@
-package com.inner.second.core.data.user
+package com.inner.second.core.data.repository
 
 import android.net.Uri
 import java.io.File
