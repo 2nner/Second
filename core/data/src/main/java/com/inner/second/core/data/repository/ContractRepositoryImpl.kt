@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 class ContractRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver,
+    private val digitalSignatureRepository: DigitalSignatureRepository,
 ) : ContractRepository {
 
     override fun exportHtmlToPdf(
@@ -38,7 +39,8 @@ class ContractRepositoryImpl @Inject constructor(
             )
         }
 
-        return file
+        val signatureFile = digitalSignatureRepository.applySignature(file)
+        return signatureFile
     }
 
     override fun saveContract(
