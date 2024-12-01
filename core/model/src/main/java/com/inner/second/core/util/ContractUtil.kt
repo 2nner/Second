@@ -88,7 +88,7 @@ fun ContractType.getHtmlForm(
                 <div>
                     <div class="signature-container">
                         <div>
-                            <b>채권자 : <u>$opponentName</u></b>
+                            <b>채무자 : <u>$opponentName</u></b>
                         </div>
                         <div style="position: relative; display: inline-block;">
                             <span>(서명 또는 인)</span>
