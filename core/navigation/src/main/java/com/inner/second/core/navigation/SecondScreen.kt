@@ -2,6 +2,7 @@ package com.inner.second.core.navigation
 
 import kotlinx.serialization.Serializable
 import com.inner.second.core.model.ContractType
+import java.io.Serial
 
 sealed interface SecondScreen {
     @Serializable

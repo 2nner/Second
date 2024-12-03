@@ -11,14 +11,18 @@ import com.inner.second.core.navigation.SecondScreen
 import com.inner.second.feature.contract.SecondContractGetInfoRoute
 import com.inner.second.feature.contract.SecondContractMainRoute
 import com.inner.second.feature.contract.SecondContractSignatureRoute
-import com.inner.second.feature.home.SecondHome
+import com.inner.second.feature.home.SecondHomeRoute
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.secondNavigation(
     navController: NavController,
 ) {
     composable<SecondScreen.Home> {
-        SecondHome()
+        SecondHomeRoute(
+            navigateToContractMain = {
+                navController.navigate(SecondScreen.Contract)
+            }
+        )
     }
 
     navigation<SecondScreen.Contract>(

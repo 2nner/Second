@@ -24,6 +24,7 @@ import com.inner.second.core.designsystem.theme.Background
 @Composable
 fun SecondToolbar(
     title: String,
+    enableLtr: Boolean = false,
     onBackButtonClick: (() -> Unit)? = null,
 ) {
     Row(
@@ -38,7 +39,7 @@ fun SecondToolbar(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = title,
-                textAlign = TextAlign.Center,
+                textAlign = if (enableLtr) TextAlign.Start else TextAlign.Center,
                 maxLines = 1,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold

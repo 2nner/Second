@@ -9,7 +9,7 @@ import com.inner.second.core.navigation.SecondScreen
 fun SecondNavHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = SecondScreen.Contract,
+        startDestination = SecondScreen.Home,
     ) {
         secondNavigation(navController = navHostController)
     }
