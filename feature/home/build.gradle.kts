@@ -1,5 +1,7 @@
 plugins {
     id("com.inner.second.android.feature")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.plugin)
 }
 
 android {
@@ -7,6 +9,13 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)

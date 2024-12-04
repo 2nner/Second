@@ -1,4 +1,4 @@
-package com.inner.second.feature.home
+package com.inner.second.feature.home.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

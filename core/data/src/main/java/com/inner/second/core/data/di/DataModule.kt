@@ -4,7 +4,9 @@ import com.inner.second.core.data.repository.ContractRepository
 import com.inner.second.core.data.repository.ContractRepositoryImpl
 import com.inner.second.core.data.repository.DigitalSignatureRepository
 import com.inner.second.core.data.repository.DigitalSignatureRepositoryImpl
+import com.inner.second.core.data.repository.FakeHomeRepository
 import com.inner.second.core.data.repository.FakeUserRepository
+import com.inner.second.core.data.repository.HomeRepository
 import com.inner.second.core.data.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -25,4 +27,7 @@ interface DataModule {
     fun bindDigitalSignatureRepository(
         digitalSignatureRepository: DigitalSignatureRepositoryImpl,
     ): DigitalSignatureRepository
+
+    @Binds
+    fun bindHomeRepository(homeRepository: FakeHomeRepository): HomeRepository
 }

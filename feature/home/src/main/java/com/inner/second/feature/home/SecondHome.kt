@@ -17,22 +17,32 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inner.second.core.designsystem.SecondBottomNavigationBar
 import com.inner.second.core.designsystem.SecondToolbar
 import com.inner.second.core.designsystem.theme.Background
+import com.inner.second.core.model.Contract
+import com.inner.second.feature.home.contract.SecondContractList
+import com.inner.second.feature.home.profile.SecondProfile
 
 @Composable
 fun SecondHomeRoute(
+    homeViewModel: HomeViewModel = hiltViewModel(),
     navigateToContractMain: () -> Unit,
 ) {
+    val contractList by homeViewModel.contractList.collectAsStateWithLifecycle()
+
     SecondHomeScreen(
-        navigateToContractMain = navigateToContractMain
+        navigateToContractMain = navigateToContractMain,
+        contractList = contractList,
     )
 }
 
 @Composable
 fun SecondHomeScreen(
     navigateToContractMain: () -> Unit,
+    contractList: List<Contract>,
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val toolbarTitle by remember(selectedTab) {
@@ -59,7 +69,9 @@ fun SecondHomeScreen(
                 .weight(1f)
         ) {
             when (selectedTab) {
-                0 -> SecondContractList()
+                0 -> SecondContractList(
+                    contractList = contractList
+                )
                 else -> SecondProfile()
             }
         }
