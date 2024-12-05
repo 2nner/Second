@@ -6,12 +6,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.inner.feature.contract_detail.ContractDetailViewModel
 import com.inner.feature.contract_detail.SecondContractDetailRoute
 import com.inner.second.core.model.ContractType
 import com.inner.second.core.navigation.SecondScreen
 import com.inner.second.feature.contract.SecondContractGetInfoRoute
 import com.inner.second.feature.contract.SecondContractMainRoute
+import com.inner.second.feature.contract.SecondContractSendRoute
 import com.inner.second.feature.contract.SecondContractSignatureRoute
 import com.inner.second.feature.home.SecondHomeRoute
 import kotlin.reflect.typeOf
@@ -47,9 +47,7 @@ fun NavGraphBuilder.secondNavigation(
             SecondContractMainRoute(
                 contractViewModel = hiltViewModel(parentEntry),
                 navigateToGetInfo = { contractType ->
-                    navController.navigate(
-                        route = SecondScreen.GetInfo(contractType),
-                    )
+                    navController.navigate(SecondScreen.GetInfo(contractType))
                 }
             )
         }
@@ -78,10 +76,20 @@ fun NavGraphBuilder.secondNavigation(
             SecondContractSignatureRoute(
                 newContractViewModel = hiltViewModel(parentEntry),
                 onBackButtonClick = { navController.popBackStack() },
+                navigateToContractSend = { navController.navigate(SecondScreen.Send) }
             )
         }
         composable<SecondScreen.Send> {
-            /* TODO */
+            SecondContractSendRoute(
+                onBackButtonClick = { navController.popBackStack() },
+                navigateToFinish = {
+                    navController.navigate(SecondScreen.Finish) {
+                        popUpTo(SecondScreen.Contract) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
         composable<SecondScreen.Finish> {
             /* TODO */

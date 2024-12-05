@@ -3,8 +3,6 @@ package com.inner.second.feature.contract
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -36,21 +34,21 @@ import com.inner.second.feature.contract.preview.ContractWebViewParameterProvide
 fun SecondContractSignatureRoute(
     newContractViewModel: NewContractViewModel = hiltViewModel(),
     onBackButtonClick: () -> Unit,
+    navigateToContractSend: () -> Unit,
 ) {
     val contractType by newContractViewModel.contractType.collectAsStateWithLifecycle()
     val contractForm by newContractViewModel.contractForm.collectAsStateWithLifecycle()
-    val contractFile by newContractViewModel.contractFile.collectAsStateWithLifecycle()
 
     val sheetState = rememberStandardBottomSheetState(
         skipHiddenState = false
     )
     var showSignatureBottomSheet by remember { mutableStateOf(false) }
 
-    val launcher = rememberLauncherForActivityResult(
+    /*val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument(mimeType = "application/pdf")
     ) {
         it?.let { newContractViewModel.saveContract(uri = it) }
-    }
+    }*/
 
     SecondContractSignatureScreen(
         toolbarTitle = "${contractType.getContractName()} 만들기",
@@ -59,8 +57,8 @@ fun SecondContractSignatureRoute(
         onDrawSignatureButtonClick = {
             showSignatureBottomSheet = true
         },
-        onContractFormSubmit = {
-            newContractViewModel.onContractFormSubmit()
+        onSendButtonClick = {
+            navigateToContractSend()
         }
     )
 
@@ -73,12 +71,6 @@ fun SecondContractSignatureRoute(
             sheetState = sheetState,
         )
     }
-
-    if (contractFile != null) {
-        launcher.launch(
-            contractFile!!.name
-        )
-    }
 }
 
 @Composable
@@ -87,7 +79,7 @@ fun SecondContractSignatureScreen(
     contractFormByHtml: String,
     onBackButtonClick: () -> Unit,
     onDrawSignatureButtonClick: () -> Unit,
-    onContractFormSubmit: () -> Unit,
+    onSendButtonClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -100,8 +92,7 @@ fun SecondContractSignatureScreen(
             onBackButtonClick = { onBackButtonClick() }
         )
         SecondContractWebView(
-            modifier = Modifier.
-            weight(1f),
+            modifier = Modifier.weight(1f),
             content = contractFormByHtml
         )
         SecondActionButton(
@@ -114,7 +105,7 @@ fun SecondContractSignatureScreen(
             text = "2단계 : 계약서 전송하기",
             enabled = true,
             onButtonClick = {
-                onContractFormSubmit()
+                onSendButtonClick()
             }
         )
     }
@@ -175,6 +166,6 @@ fun SecondContractSignatureScreenPreview(
         contractFormByHtml = contractFormByHtml,
         onBackButtonClick = {},
         onDrawSignatureButtonClick = {},
-        onContractFormSubmit = {},
+        onSendButtonClick = {},
     )
 }
