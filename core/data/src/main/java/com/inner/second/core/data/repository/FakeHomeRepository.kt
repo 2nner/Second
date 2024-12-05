@@ -10,9 +10,7 @@ class FakeHomeRepository @Inject constructor() : HomeRepository {
     private val contractList: Flow<List<Contract>> = flowOf(
         mutableListOf(
             Contract.dummy(),
-            Contract.dummy().copy(
-                id = 2
-            ),
+            Contract.dummy2()
         )
     )
 

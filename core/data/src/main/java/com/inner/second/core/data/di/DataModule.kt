@@ -1,9 +1,11 @@
 package com.inner.second.core.data.di
 
+import com.inner.second.core.data.repository.ContractDetailRepository
 import com.inner.second.core.data.repository.ContractRepository
 import com.inner.second.core.data.repository.ContractRepositoryImpl
 import com.inner.second.core.data.repository.DigitalSignatureRepository
 import com.inner.second.core.data.repository.DigitalSignatureRepositoryImpl
+import com.inner.second.core.data.repository.FakeContractDetailRepository
 import com.inner.second.core.data.repository.FakeHomeRepository
 import com.inner.second.core.data.repository.FakeUserRepository
 import com.inner.second.core.data.repository.HomeRepository
@@ -30,4 +32,7 @@ interface DataModule {
 
     @Binds
     fun bindHomeRepository(homeRepository: FakeHomeRepository): HomeRepository
+
+    @Binds
+    fun bindContractDetailRepository(contractDetailRepository: FakeContractDetailRepository): ContractDetailRepository
 }

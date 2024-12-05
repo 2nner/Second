@@ -109,55 +109,55 @@ fun SecondContractDetailHeader(
                 color = Purple
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = contract.title,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "계약서 유형 : ${contract.type.getContractName()}",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = ActionButtonBackground,
-            )
+        }
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = contract.title,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "계약서 유형 : ${contract.type.getContractName()}",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = ActionButtonBackground,
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = contract.duration.display(),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = ActionButtonDisabledBackground,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "채권자 : ${contract.name}",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = ActionButtonDisabledBackground,
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "채무자 : ${contract.oppositeName}",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = ActionButtonDisabledBackground,
+        )
+        contract.description?.let { description ->
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = contract.duration.display(),
+                text = description,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = ActionButtonDisabledBackground,
             )
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "채권자 : ${contract.name}",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = ActionButtonDisabledBackground,
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "채무자 : ${contract.oppositeName}",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = ActionButtonDisabledBackground,
-            )
-            contract.description?.let { description ->
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = description,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = ActionButtonDisabledBackground,
-                )
-            }
         }
     }
 }
