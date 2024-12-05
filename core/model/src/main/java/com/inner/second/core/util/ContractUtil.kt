@@ -14,10 +14,10 @@ fun ContractType.getHtmlForm(
 ): String {
     val title = map[ContractFormInput.ContractTitle.key] as String
     val duration = map[ContractFormInput.DateDuration.key] as DateDuration
+    val opponentName = map[ContractFormInput.OpponentName.key]
 
     val content = when (this) {
         is ContractType.IOU -> {
-            val opponentName = map[ContractFormInput.OpponentName.key]
             val itemType = buildList {
                 listOf(
                     ContractFormInput.ItemName,
@@ -53,60 +53,17 @@ fun ContractType.getHtmlForm(
                     </br>
                     기간 : ${duration.startDate.toFormattedString()} ~ ${duration.endDate.toFormattedString()}
                 </div>
-                
-                <div class="contract-date">
-                    ${LocalDateTime.now().toFormattedStringInKorean()}
-                </div>
-                
-                <div>
-                    <div class="signature-container">
-                        <div>
-                            <b>채권자 : <u>${user.name}</u></b>
-                        </div>
-                        <div style="position: relative; display: inline-block;">
-                            <span>(서명 또는 인)</span>
-                            ${
-                                if (map.containsKey(ContractKey.Signature.name)) {
-                                    "<img src=\"data:image/png;base64, ${map[ContractKey.Signature.name] as String}\">"
-                                } else {
-                                    ""
-                                }
-                            }
-                           
-                        </div>
-                    </div>
-                    <div>
-                        <b>주소 : <u>${user.address}</u></b>
-                    </div>
-                    <div>
-                        <b>전화번호 : <u>${user.phoneNumber}</u></b>
-                    </div>
-                </div>
-                
-                </br>
-                
-                <div>
-                    <div class="signature-container">
-                        <div>
-                            <b>채무자 : <u>$opponentName</u></b>
-                        </div>
-                        <div style="position: relative; display: inline-block;">
-                            <span>(서명 또는 인)</span>
-                        </div>
-                    </div>
-                    <div>
-                        <b>주소 : <u></u></b>
-                    </div>
-                    <div>
-                        <b>전화번호 : <u></u></b>
-                    </div>
-                </div>
             """
         }
 
         is ContractType.New -> {
+            val multipleDescription = map[ContractFormInput.MultipleDescription.key] as List<String>
             """
-                
+                <div class="contract-description">
+                    ${
+                        multipleDescription.joinToString(separator = "</br>", prefix = "<p>", postfix = "<p>")
+                    }
+                </div>
             """
         }
     }
@@ -183,6 +140,53 @@ fun ContractType.getHtmlForm(
         </div>
         
         $content
+
+        <div class="contract-date">
+            ${LocalDateTime.now().toFormattedStringInKorean()}
+        </div>
+    
+        <div>
+            <div class="signature-container">
+                <div>
+                    <b>${ if (this == ContractType.IOU) "채권자" else "작성인" } : <u>${user.name}</u></b>
+                </div>
+                <div style="position: relative; display: inline-block;">
+                    <span>(서명 또는 인)</span>
+                    ${
+                        if (map.containsKey(ContractKey.Signature.name)) {
+                            "<img src=\"data:image/png;base64, ${map[ContractKey.Signature.name] as String}\">"
+                        } else {
+                            ""
+                        }
+                    }               
+                </div>
+            </div>    
+            <div>
+                <b>주소 : <u>${user.address}</u></b>
+            </div>
+            <div>
+                <b>전화번호 : <u>${user.phoneNumber}</u></b>
+            </div>
+        </div>
+    
+        </br>
+        
+        <div>
+            <div class="signature-container">
+                <div>
+                    <b>${ if (this == ContractType.IOU) "채무자" else "수신인" } : <u>$opponentName</u></b>
+                </div>
+                <div style="position: relative; display: inline-block;">
+                    <span>(서명 또는 인)</span>
+                </div>
+            </div>
+            <div>
+                <b>주소 : <u></u></b>
+            </div>
+            <div>
+                <b>전화번호 : <u></u></b>
+            </div>
+        </div>
 
         </body>
         </html>

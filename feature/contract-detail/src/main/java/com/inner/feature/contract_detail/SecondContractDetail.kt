@@ -41,6 +41,7 @@ import com.inner.second.core.designsystem.theme.ActionButtonDisabledBackground
 import com.inner.second.core.designsystem.theme.Background
 import com.inner.second.core.designsystem.theme.Purple
 import com.inner.second.core.model.Contract
+import com.inner.second.core.model.ContractType
 
 @Composable
 fun SecondContractDetailRoute(
@@ -133,22 +134,26 @@ fun SecondContractDetailHeader(
             fontWeight = FontWeight.SemiBold,
             color = ActionButtonDisabledBackground,
         )
-        Spacer(modifier = Modifier.height(12.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "채권자 : ${contract.name}",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = ActionButtonDisabledBackground,
-        )
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "채무자 : ${contract.oppositeName}",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = ActionButtonDisabledBackground,
-        )
+
+        if (contract.type == ContractType.IOU) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "채권자 : ${contract.name}",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = ActionButtonDisabledBackground,
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "채무자 : ${contract.oppositeName}",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = ActionButtonDisabledBackground,
+            )
+        }
+
         contract.description?.let { description ->
             Spacer(modifier = Modifier.height(2.dp))
             Text(

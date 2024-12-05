@@ -11,6 +11,7 @@ sealed class ContractForm {
             return listOf(
                 ContractFormInput.ContractTitle,
                 ContractFormInput.MultipleDescription,
+                ContractFormInput.OpponentName,
                 ContractFormInput.DateDuration,
             )
         }
