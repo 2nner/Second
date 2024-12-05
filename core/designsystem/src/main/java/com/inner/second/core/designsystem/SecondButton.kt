@@ -2,6 +2,7 @@ package com.inner.second.core.designsystem
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +24,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SecondButton(
-    titleIconRes: Int,
+    titleIconRes: Int? = null,
     trailingIconRes: Int? = null,
     titleIconTintColor: Color? = null,
     trailingIconTintColor: Color? = null,
@@ -38,14 +39,16 @@ fun SecondButton(
             .clickable(indication = null, interactionSource = null) { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            modifier = Modifier.size(24.dp),
-            painter = painterResource(id = titleIconRes),
-            tint = titleIconTintColor ?: LocalContentColor.current,
-            contentDescription = "titleIcon"
-        )
+        if (titleIconRes != null) {
+            Icon(
+                modifier = Modifier.size(24.dp),
+                painter = painterResource(id = titleIconRes),
+                tint = titleIconTintColor ?: LocalContentColor.current,
+                contentDescription = "titleIcon"
+            )
 
-        Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+        }
 
         Text(
             text = text,
@@ -69,9 +72,15 @@ fun SecondButton(
 @Preview(showBackground = true)
 @Composable
 fun SecondButtonPreview() {
-    SecondButton(
-        titleIconRes = R.drawable.ic_edit_outlined,
-        trailingIconRes = R.drawable.ic_chevron_right,
-        text = "직접 작성하기",
-    )
+    Column {
+        SecondButton(
+            titleIconRes = R.drawable.ic_edit_outlined,
+            trailingIconRes = R.drawable.ic_chevron_right,
+            text = "직접 작성하기",
+        )
+        SecondButton(
+            trailingIconRes = R.drawable.ic_chevron_right,
+            text = "직접 작성하기",
+        )
+    }
 }

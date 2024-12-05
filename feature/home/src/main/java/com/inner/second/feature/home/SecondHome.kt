@@ -30,18 +30,21 @@ import com.inner.second.feature.home.profile.SecondProfile
 fun SecondHomeRoute(
     homeViewModel: HomeViewModel = hiltViewModel(),
     navigateToContractMain: () -> Unit,
+    navigateToContractDetail: (Int) -> Unit,
 ) {
     val contractList by homeViewModel.contractList.collectAsStateWithLifecycle()
 
     SecondHomeScreen(
         navigateToContractMain = navigateToContractMain,
         contractList = contractList,
+        navigateToContractDetail = navigateToContractDetail
     )
 }
 
 @Composable
 fun SecondHomeScreen(
     navigateToContractMain: () -> Unit,
+    navigateToContractDetail: (Int) -> Unit,
     contractList: List<Contract>,
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
@@ -70,7 +73,8 @@ fun SecondHomeScreen(
         ) {
             when (selectedTab) {
                 0 -> SecondContractList(
-                    contractList = contractList
+                    contractList = contractList,
+                    onItemClick = navigateToContractDetail
                 )
                 else -> SecondProfile()
             }
@@ -90,7 +94,13 @@ fun SecondHomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun SecondHomePreview() {
-    SecondHomeRoute(
-        navigateToContractMain = {}
+    SecondHomeScreen(
+        navigateToContractMain = {},
+        navigateToContractDetail = {},
+        contractList = listOf(
+            Contract.dummy(),
+            Contract.dummy(),
+            Contract.dummy().copy(dueDate = null),
+        )
     )
 }

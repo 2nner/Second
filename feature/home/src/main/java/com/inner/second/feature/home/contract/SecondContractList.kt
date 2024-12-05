@@ -1,6 +1,7 @@
 package com.inner.second.feature.home.contract
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import com.inner.second.core.model.Contract
 fun SecondContractList(
     modifier: Modifier = Modifier,
     contractList: List<Contract> = emptyList(),
+    onItemClick: (Int) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
@@ -44,7 +46,11 @@ fun SecondContractList(
     ) {
         items(contractList.size) { index ->
             key(contractList[index].id) {
-                SecondContractListItem(contract = contractList[index])
+                val contract = contractList[index]
+                SecondContractListItem(
+                    contract = contract,
+                    onItemClick = { onItemClick(contract.id) }
+                )
             }
         }
     }
@@ -53,9 +59,11 @@ fun SecondContractList(
 @Composable
 fun SecondContractListItem(
     contract: Contract,
+    onItemClick: () -> Unit
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .clickable(interactionSource = null, indication = null, onClick = onItemClick),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -120,25 +128,14 @@ fun SecondContractListItem(
 fun SecondContractListPreview() {
     SecondContractList(
         contractList = listOf(
-            Contract(
-                id = 1,
-                title = "금전소비대차계약서",
-                createdAt = "10.9 월 오후 1:12",
-                dueDate = "D-5"
+            Contract.dummy(),
+            Contract.dummy().copy(
+                id = 2,
+                dueDate = null,
             ),
-            Contract(
-                id = 1,
-                title = "금전소비대차계약서",
-                createdAt = "10.9 월 오후 1:12",
-                dueDate = null
-            ),
-            Contract(
-                id = 1,
-                title = "금전소비대차계약서",
-                createdAt = "10.9 월 오후 1:12",
-                dueDate = "D-5"
-            )
-        )
+            Contract.dummy()
+        ),
+        onItemClick = {}
     )
 }
 
@@ -146,11 +143,7 @@ fun SecondContractListPreview() {
 @Preview
 fun SecondContractListItemPreview() {
     SecondContractListItem(
-        contract = Contract(
-            id = 1,
-            title = "금전소비대차계약서",
-            createdAt = "10.9 월 오후 1:12",
-            dueDate = "D-5"
-        )
+        contract = Contract.dummy(),
+        onItemClick = {}
     )
 }

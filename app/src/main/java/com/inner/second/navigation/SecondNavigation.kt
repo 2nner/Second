@@ -6,6 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.inner.feature.contract_detail.ContractDetailViewModel
+import com.inner.feature.contract_detail.SecondContractDetailRoute
 import com.inner.second.core.model.ContractType
 import com.inner.second.core.navigation.SecondScreen
 import com.inner.second.feature.contract.SecondContractGetInfoRoute
@@ -21,7 +23,16 @@ fun NavGraphBuilder.secondNavigation(
         SecondHomeRoute(
             navigateToContractMain = {
                 navController.navigate(SecondScreen.Contract)
+            },
+            navigateToContractDetail = { contractId ->
+                navController.navigate(SecondScreen.ContractDetail(contractId))
             }
+        )
+    }
+
+    composable<SecondScreen.ContractDetail> {
+        SecondContractDetailRoute(
+            onBackButtonClick = { navController.popBackStack() },
         )
     }
 

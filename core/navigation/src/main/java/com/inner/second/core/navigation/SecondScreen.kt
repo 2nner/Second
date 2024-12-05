@@ -23,4 +23,7 @@ sealed interface SecondScreen {
     data object Send : SecondScreen
     @Serializable
     data object Finish : SecondScreen
+
+    @Serializable
+    data class ContractDetail(val contractId: Int) : SecondScreen
 }

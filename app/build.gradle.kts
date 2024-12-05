@@ -41,6 +41,7 @@ dependencies {
     // Feature
     implementation(projects.feature.home)
     implementation(projects.feature.contract)
+    implementation(projects.feature.contractDetail)
 
     // Core
     implementation(projects.core.designsystem)
