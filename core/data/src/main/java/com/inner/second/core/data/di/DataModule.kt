@@ -14,25 +14,31 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
 
+    @Singleton
     @Binds
     fun bindUserRepository(userRepository: FakeUserRepository): UserRepository
 
+    @Singleton
     @Binds
     fun bindContractRepository(contractRepository: ContractRepositoryImpl): ContractRepository
 
+    @Singleton
     @Binds
     fun bindDigitalSignatureRepository(
         digitalSignatureRepository: DigitalSignatureRepositoryImpl,
     ): DigitalSignatureRepository
 
+    @Singleton
     @Binds
     fun bindHomeRepository(homeRepository: FakeHomeRepository): HomeRepository
 
+    @Singleton
     @Binds
     fun bindContractDetailRepository(contractDetailRepository: FakeContractDetailRepository): ContractDetailRepository
 }
