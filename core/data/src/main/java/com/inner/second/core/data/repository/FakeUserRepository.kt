@@ -9,11 +9,5 @@ class FakeUserRepository @Inject constructor(
 
 ) : UserRepository {
 
-    override fun fetchUser(): Flow<User> = flowOf(
-        User(
-            name = "김한슬",
-            address = "서울 동작구 사당로 50 (상도동, 숭실대학교 정보과학관) 910호",
-            phoneNumber = "010-5752-3665"
-        )
-    )
+    override fun fetchUser(): Flow<User> = flowOf(User.dummy())
 }

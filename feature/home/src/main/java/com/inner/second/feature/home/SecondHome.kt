@@ -23,6 +23,7 @@ import com.inner.second.core.designsystem.SecondBottomNavigationBar
 import com.inner.second.core.designsystem.SecondToolbar
 import com.inner.second.core.designsystem.theme.Background
 import com.inner.second.core.model.Contract
+import com.inner.second.core.model.response.User
 import com.inner.second.feature.home.contract.SecondContractList
 import com.inner.second.feature.home.profile.SecondProfile
 
@@ -33,12 +34,16 @@ fun SecondHomeRoute(
     navigateToContractDetail: (Int) -> Unit,
 ) {
     val contractList by homeViewModel.contractList.collectAsStateWithLifecycle()
+    val user by homeViewModel.user.collectAsStateWithLifecycle()
 
-    SecondHomeScreen(
-        navigateToContractMain = navigateToContractMain,
-        contractList = contractList,
-        navigateToContractDetail = navigateToContractDetail
-    )
+    user?.let {
+        SecondHomeScreen(
+            navigateToContractMain = navigateToContractMain,
+            contractList = contractList,
+            navigateToContractDetail = navigateToContractDetail,
+            user = it
+        )
+    }
 }
 
 @Composable
@@ -46,6 +51,7 @@ fun SecondHomeScreen(
     navigateToContractMain: () -> Unit,
     navigateToContractDetail: (Int) -> Unit,
     contractList: List<Contract>,
+    user: User,
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val toolbarTitle by remember(selectedTab) {
@@ -76,7 +82,9 @@ fun SecondHomeScreen(
                     contractList = contractList,
                     onItemClick = navigateToContractDetail
                 )
-                else -> SecondProfile()
+                else -> SecondProfile(
+                    user = user
+                )
             }
         }
 
@@ -101,6 +109,7 @@ fun SecondHomePreview() {
             Contract.dummy(),
             Contract.dummy(),
             Contract.dummy().copy(dueDate = null),
-        )
+        ),
+        user = User.dummy()
     )
 }

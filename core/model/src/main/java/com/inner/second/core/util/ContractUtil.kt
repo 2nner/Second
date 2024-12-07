@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 
 fun ContractType.getHtmlForm(
     map: Map<String, Any>,
-    user: User = User("김한슬", "서울 동작구 사당로 50 (상도동, 숭실대학교 정보과학관) 910호", "010-5752-3665"),
+    user: User = User.dummy(),
 ): String {
     val title = map[ContractFormInput.ContractTitle.key] as String
     val duration = map[ContractFormInput.DateDuration.key] as DateDuration
