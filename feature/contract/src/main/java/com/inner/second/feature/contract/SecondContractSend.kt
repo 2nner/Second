@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.inner.second.core.designsystem.SecondActionButton
 import com.inner.second.core.designsystem.SecondToolbar
 import com.inner.second.core.designsystem.theme.Background
@@ -37,6 +38,7 @@ import com.inner.second.core.designsystem.theme.TextFieldPurple
 
 @Composable
 fun SecondContractSendRoute(
+    newContractViewModel: NewContractViewModel = hiltViewModel(),
     onBackButtonClick: () -> Unit,
     navigateToFinish: () -> Unit,
 ) {
@@ -44,6 +46,7 @@ fun SecondContractSendRoute(
         onBackButtonClick = onBackButtonClick,
         onSendButtonClick = {
             navigateToFinish()
+            newContractViewModel.addContract()
         }
     )
 }

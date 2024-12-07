@@ -1,5 +1,7 @@
 package com.inner.second.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -9,6 +11,7 @@ import androidx.navigation.navigation
 import com.inner.feature.contract_detail.SecondContractDetailRoute
 import com.inner.second.core.model.ContractType
 import com.inner.second.core.navigation.SecondScreen
+import com.inner.second.feature.contract.SecondContractFinishRoute
 import com.inner.second.feature.contract.SecondContractGetInfoRoute
 import com.inner.second.feature.contract.SecondContractMainRoute
 import com.inner.second.feature.contract.SecondContractSendRoute
@@ -16,6 +19,7 @@ import com.inner.second.feature.contract.SecondContractSignatureRoute
 import com.inner.second.feature.home.SecondHomeRoute
 import kotlin.reflect.typeOf
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 fun NavGraphBuilder.secondNavigation(
     navController: NavController,
 ) {
@@ -79,8 +83,13 @@ fun NavGraphBuilder.secondNavigation(
                 navigateToContractSend = { navController.navigate(SecondScreen.Send) }
             )
         }
-        composable<SecondScreen.Send> {
+        composable<SecondScreen.Send> { backStackEntry ->
+            val parentEntry = remember(backStackEntry) {
+                navController.getBackStackEntry(SecondScreen.Contract)
+            }
+
             SecondContractSendRoute(
+                newContractViewModel = hiltViewModel(parentEntry),
                 onBackButtonClick = { navController.popBackStack() },
                 navigateToFinish = {
                     navController.navigate(SecondScreen.Finish) {
@@ -91,8 +100,15 @@ fun NavGraphBuilder.secondNavigation(
                 }
             )
         }
+
         composable<SecondScreen.Finish> {
-            /* TODO */
+            SecondContractFinishRoute(
+                popBackStack = { navController.popBackStack() },
+                navigateToDetail = {
+                    navController.popBackStack()
+                    /* TODO : 상세 화면으로 이동 */
+                }
+            )
         }
     }
 }

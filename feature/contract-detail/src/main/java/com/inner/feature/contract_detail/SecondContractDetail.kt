@@ -147,7 +147,7 @@ fun SecondContractDetailHeader(
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "채무자 : ${contract.oppositeName}",
+                text = "채무자 : ${contract.opponentName}",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = ActionButtonDisabledBackground,

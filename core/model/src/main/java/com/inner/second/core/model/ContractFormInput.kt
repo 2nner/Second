@@ -38,7 +38,7 @@ sealed class ContractFormInput(
     )
 
     data object OpponentName : ContractFormInput(
-        title = "상대방(채권자) 이름",
+        title = "상대방 이름",
         type = ContractFormInputType.Text,
         dataType = String::class
     )

@@ -17,13 +17,14 @@ import com.inner.second.core.designsystem.theme.ActionButtonDisabledBackground
 
 @Composable
 fun SecondActionButton(
+    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
     onButtonClick: () -> Unit,
 ) {
     Text(
         text = text,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable(
                 indication = null,
