@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,6 +28,8 @@ import com.inner.second.core.designsystem.SecondTextBottomSheet
 import com.inner.second.core.designsystem.SecondToolbar
 import com.inner.second.core.designsystem.theme.Background
 import com.inner.second.core.util.ContractUtil
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun SecondContractReceiverSignatureRoute(
@@ -35,6 +38,7 @@ fun SecondContractReceiverSignatureRoute(
     navigateToFinish: () -> Unit,
 ) {
     val confirmed by contractReceiverViewModel.confirmed.collectAsStateWithLifecycle()
+    val coroutineScope = rememberCoroutineScope()
 
     val textSheetState = rememberStandardBottomSheetState(
         skipHiddenState = false
@@ -70,8 +74,11 @@ fun SecondContractReceiverSignatureRoute(
     if (showSignatureBottomSheet) {
         SecondSignatureBottomSheet(
             onDrawSignatureComplete = {
-                contractReceiverViewModel.updateContractStateConcluded()
-                navigateToFinish()
+                coroutineScope.launch {
+                    contractReceiverViewModel.updateContractStateConcluded()
+                    delay(1000L)
+                    navigateToFinish()
+                }
             },
             onDismiss = { showSignatureBottomSheet = false },
             sheetState = signatureSheetState,

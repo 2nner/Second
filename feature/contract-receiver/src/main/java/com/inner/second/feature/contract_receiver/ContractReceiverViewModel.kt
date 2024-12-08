@@ -23,7 +23,7 @@ class ContractReceiverViewModel @Inject constructor(
     }
 
     // Only for dummy test
-    fun updateContractStateConcluded() {
+    suspend fun updateContractStateConcluded() {
         homeRepository.updateContractStateConcluded(1)
     }
 }
