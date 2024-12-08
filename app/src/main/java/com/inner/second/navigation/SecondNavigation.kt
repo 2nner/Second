@@ -16,6 +16,7 @@ import com.inner.second.feature.contract.SecondContractGetInfoRoute
 import com.inner.second.feature.contract.SecondContractMainRoute
 import com.inner.second.feature.contract.SecondContractSendRoute
 import com.inner.second.feature.contract.SecondContractSignatureRoute
+import com.inner.second.feature.contract_receiver.SecondContractReceiverSignatureRoute
 import com.inner.second.feature.home.SecondHomeRoute
 import kotlin.reflect.typeOf
 
@@ -37,6 +38,9 @@ fun NavGraphBuilder.secondNavigation(
     composable<SecondScreen.ContractDetail> {
         SecondContractDetailRoute(
             onBackButtonClick = { navController.popBackStack() },
+            navigateToContractReceiverSignature = { contractId ->
+                navController.navigate(SecondScreen.ContractReceiver)
+            }
         )
     }
 
@@ -100,7 +104,6 @@ fun NavGraphBuilder.secondNavigation(
                 }
             )
         }
-
         composable<SecondScreen.Finish> {
             SecondContractFinishRoute(
                 popBackStack = { navController.popBackStack() },
@@ -109,6 +112,26 @@ fun NavGraphBuilder.secondNavigation(
                     /* TODO : 상세 화면으로 이동 */
                 }
             )
+        }
+    }
+
+    navigation<SecondScreen.ContractReceiver>(
+        startDestination = SecondScreen.ReceiverSignature
+    ) {
+        composable<SecondScreen.ReceiverSignature> {
+            SecondContractReceiverSignatureRoute(
+                onBackButtonClick = { navController.popBackStack() },
+                navigateToFinish = {
+                    navController.navigate(SecondScreen.ReceiverFinish) {
+                        popUpTo(SecondScreen.ContractReceiver) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+        composable<SecondScreen.ReceiverFinish> {
+
         }
     }
 }

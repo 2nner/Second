@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface HomeRepository {
     fun fetchContractList(): Flow<List<Contract>>
     fun addContract(contract: Contract)
+    fun updateContractStateConcluded(contractId: Int)
 }

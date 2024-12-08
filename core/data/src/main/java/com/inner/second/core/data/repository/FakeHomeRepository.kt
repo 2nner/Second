@@ -28,4 +28,19 @@ class FakeHomeRepository @Inject constructor() : HomeRepository {
             contractList.emit(newList)
         }
     }
+
+    override fun updateContractStateConcluded(contractId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                contractList.value.toMutableList()
+                    .run {
+                        val index = indexOfFirst { it.id == contractId }
+                        this[index] = this[index].copy(
+                            dueDate = null
+                        )
+                        contractList.emit(this)
+                    }
+            }
+        }
+    }
 }

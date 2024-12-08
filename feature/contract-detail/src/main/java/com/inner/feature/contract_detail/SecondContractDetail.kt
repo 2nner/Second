@@ -47,12 +47,14 @@ import com.inner.second.core.model.ContractType
 fun SecondContractDetailRoute(
     viewModel: ContractDetailViewModel = hiltViewModel(),
     onBackButtonClick: () -> Unit,
+    navigateToContractReceiverSignature: (Int) -> Unit,
 ) {
     val contract by viewModel.contract.collectAsStateWithLifecycle()
 
     SecondContractDetailScreen(
         onBackButtonClick = onBackButtonClick,
-        contract = contract
+        contract = contract,
+        navigateToContractReceiverSignature = navigateToContractReceiverSignature
     )
 }
 
@@ -60,6 +62,7 @@ fun SecondContractDetailRoute(
 fun SecondContractDetailScreen(
     onBackButtonClick: () -> Unit,
     contract: Contract?,
+    navigateToContractReceiverSignature: (Int) -> Unit,
 ) {
     if (contract == null) {
         return
@@ -76,7 +79,8 @@ fun SecondContractDetailScreen(
             onBackButtonClick = onBackButtonClick,
         )
         SecondContractDetailContent(
-            contract = contract
+            contract = contract,
+            navigateToContractReceiverSignature = navigateToContractReceiverSignature
         )
     }
 }
@@ -84,13 +88,17 @@ fun SecondContractDetailScreen(
 @Composable
 fun SecondContractDetailContent(
     contract: Contract,
+    navigateToContractReceiverSignature: (Int) -> Unit,
 ) {
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         SecondContractDetailHeader(contract)
         HorizontalDivider()
-        SecondContractDetailButtons(contract)
+        SecondContractDetailButtons(
+            contract = contract,
+            navigateToContractReceiverSignature = navigateToContractReceiverSignature
+        )
     }
 }
 
@@ -170,6 +178,7 @@ fun SecondContractDetailHeader(
 @Composable
 fun SecondContractDetailButtons(
     contract: Contract,
+    navigateToContractReceiverSignature: (Int) -> Unit,
 ) {
     var alarmEnabled by remember { mutableStateOf(true) }
 
@@ -197,7 +206,10 @@ fun SecondContractDetailButtons(
             !contract.isMine && !contract.contractConcluded -> {
                 SecondButton(
                     trailingIconRes = R.drawable.ic_chevron_right,
-                    text = "계약서 확인 후 서명하기"
+                    text = "계약서 확인 후 서명하기",
+                    onClick = {
+                        navigateToContractReceiverSignature(contract.id)
+                    }
                 )
             }
 
@@ -246,6 +258,7 @@ fun SecondContractDetailButtons(
 fun SecondContractDetailScreenPreview() {
     SecondContractDetailScreen(
         onBackButtonClick = {},
-        contract = Contract.dummy().copy(description = "아이패드")
+        contract = Contract.dummy().copy(description = "아이패드"),
+        navigateToContractReceiverSignature = {},
     )
 }

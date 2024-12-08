@@ -25,5 +25,15 @@ sealed interface SecondScreen {
     data object Finish : SecondScreen
 
     @Serializable
+    data object ContractReceiver : SecondScreen
+    /**
+     * Child of ContractReceiver
+     **/
+    @Serializable
+    data object ReceiverSignature : SecondScreen
+    @Serializable
+    data object ReceiverFinish : SecondScreen
+
+    @Serializable
     data class ContractDetail(val contractId: Int) : SecondScreen
 }
