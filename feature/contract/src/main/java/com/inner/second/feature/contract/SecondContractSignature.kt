@@ -43,6 +43,7 @@ fun SecondContractSignatureRoute(
         skipHiddenState = false
     )
     var showSignatureBottomSheet by remember { mutableStateOf(false) }
+    var signatureCompleted by remember { mutableStateOf(false) }
 
     /*val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument(mimeType = "application/pdf")
@@ -53,6 +54,7 @@ fun SecondContractSignatureRoute(
     SecondContractSignatureScreen(
         toolbarTitle = "${contractType.getContractName()} 만들기",
         contractFormByHtml = contractForm,
+        signatureCompleted = signatureCompleted,
         onBackButtonClick = onBackButtonClick,
         onDrawSignatureButtonClick = {
             showSignatureBottomSheet = true
@@ -66,6 +68,7 @@ fun SecondContractSignatureRoute(
         SecondSignatureBottomSheet(
             onDrawSignatureComplete = {
                 newContractViewModel.onSignatureComplete(bitmap = it)
+                signatureCompleted = true
             },
             onDismiss = { showSignatureBottomSheet = false },
             sheetState = sheetState,
@@ -77,6 +80,7 @@ fun SecondContractSignatureRoute(
 fun SecondContractSignatureScreen(
     toolbarTitle: String,
     contractFormByHtml: String,
+    signatureCompleted: Boolean,
     onBackButtonClick: () -> Unit,
     onDrawSignatureButtonClick: () -> Unit,
     onSendButtonClick: () -> Unit,
@@ -97,13 +101,14 @@ fun SecondContractSignatureScreen(
         )
         SecondActionButton(
             text = "1단계 : 서명하기",
+            enabled = !signatureCompleted,
             onButtonClick = {
                 onDrawSignatureButtonClick()
             }
         )
         SecondActionButton(
             text = "2단계 : 계약서 전송하기",
-            enabled = true,
+            enabled = signatureCompleted,
             onButtonClick = {
                 onSendButtonClick()
             }
@@ -133,15 +138,6 @@ fun SecondContractWebView(
                         )
                         .build()
                 )
-                settings.apply {
-                    cacheMode = WebSettings.LOAD_NO_CACHE
-                    javaScriptEnabled = true
-                    loadsImagesAutomatically = true
-                    allowFileAccess = true
-                    domStorageEnabled = true
-                    mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                    allowContentAccess = true
-                }
             }
         },
         modifier = modifier,
@@ -164,6 +160,7 @@ fun SecondContractSignatureScreenPreview(
     SecondContractSignatureScreen(
         toolbarTitle = "${ContractType.IOU.getContractName()} 만들기",
         contractFormByHtml = contractFormByHtml,
+        signatureCompleted = false,
         onBackButtonClick = {},
         onDrawSignatureButtonClick = {},
         onSendButtonClick = {},
