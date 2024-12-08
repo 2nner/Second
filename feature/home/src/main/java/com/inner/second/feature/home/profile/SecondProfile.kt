@@ -35,14 +35,9 @@ fun SecondProfile(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(),
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SecondToolbar(
-            title = "내 프로필",
-            enableLtr = true
-        )
-        Spacer(modifier = Modifier.height(24.dp))
         Box(
             modifier = Modifier
                 .size(80.dp)
@@ -58,9 +53,7 @@ fun SecondProfile(
             )
         }
         Spacer(modifier = Modifier.height(24.dp))
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-        ) {
+        Column{
             Row(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
