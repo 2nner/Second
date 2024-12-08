@@ -16,6 +16,7 @@ import com.inner.second.feature.contract.SecondContractGetInfoRoute
 import com.inner.second.feature.contract.SecondContractMainRoute
 import com.inner.second.feature.contract.SecondContractSendRoute
 import com.inner.second.feature.contract.SecondContractSignatureRoute
+import com.inner.second.feature.contract_receiver.SecondContractReceiverFinishRoute
 import com.inner.second.feature.contract_receiver.SecondContractReceiverSignatureRoute
 import com.inner.second.feature.home.SecondHomeRoute
 import kotlin.reflect.typeOf
@@ -131,7 +132,13 @@ fun NavGraphBuilder.secondNavigation(
             )
         }
         composable<SecondScreen.ReceiverFinish> {
-
+            SecondContractReceiverFinishRoute(
+                popBackStack = { navController.popBackStack() },
+                navigateToDetail = {
+                    navController.popBackStack()
+                    /* TODO : 상세 화면으로 이동 */
+                }
+            )
         }
     }
 }
